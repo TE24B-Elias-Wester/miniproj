@@ -7,7 +7,7 @@ void main() {
     //                   {13, 14, 15, 16},
     //                   {17, 18, 19, 20} };
     // int[] seats = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
-    String[] seats = {"01", "02", "030000", "04", "05", "06", "07", "080000", "09", "10", "11", "120000", "13", "14", "15", "16", "17", "18", "19", "20"};
+    String[] seats = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
     
     while (val != 4) {
         val = 0;
@@ -18,32 +18,29 @@ void main() {
         }
         switch (val) {
             case 1 -> {
-
+                
                 int seat = chooseSeat(seats);
                 String ID = enterIdentification(seats);
                 seats[seat] = ID;
 
             }
             case 2 -> {
-
+                
                 printSeats(seats);
-
+                
             }
             case 3 -> {
-
+                
                 IO.println(calculateEarnings(seats));
-
+                
             }
             case 4 -> {break;}
             default -> {
                 IO.println("Ogiltigt val, försök igen");
             }
         }
-        
+        // clearScreen();   
     }
-    
-    printSeats(seats);
-    
 }
 
 double calculateEarnings(String[] seats) {
@@ -70,21 +67,37 @@ double calculateEarnings(String[] seats) {
 
 String enterIdentification(String[] seats) {
     int tmp = 0;
-    String s_date = "";
+    String s_id = "";
 
+    IO.println("\n1: Birth Date\n2: Name\n");
     while (true) {
-        s_date = IO.readln("Enter your birth date (YYMMDD): ");
         try {
-            tmp = Integer.parseInt(s_date);
-            if (tmp > 999999 || tmp < 000101) {
-                IO.println("Incorrect input, try again");
-            }
-            else break;
+            tmp = Integer.parseInt(IO.readln("Välj: "));
+            break;
         } catch (Exception e) {
             IO.println("Incorrect input, try again");
         }
     }
-    return s_date;
+    switch (tmp) {
+        case 1 -> {
+            while (true) {
+                s_id = IO.readln("Enter your birth date (YYMMDD): ");
+                    try {
+                        tmp = Integer.parseInt(s_id);
+                        if (tmp > 999999 || tmp < 000101) {
+                            IO.println("Incorrect input, try again");
+                        }
+                        else break;
+                    } catch (Exception e) {
+                        IO.println("Incorrect input, try again");
+                    }
+                }
+            }
+        case 2 -> {
+            s_id = IO.readln("Enter your name: ");
+        }
+    }
+    return s_id;
 }
 
 int chooseSeat(String[] seats) {
@@ -116,24 +129,6 @@ void printSeats(String[] seats) {
             IO.print(seats[i] + "|");
         }
     }
-    // for (int row = 0; row < seats.length; row++) {
-        //     for (int col = 0; col < seats[row].length; col++) {
-            //         IO.print("|");
-            //         if (seats[row][col] > 20) {
-                //             IO.print(" X");
-                //         }
-    //         else {
-    //             if (seats[row][col] < 10) {
-        //                 IO.print(" ");
-        //             }
-        //             IO.print(seats[row][col]);
-    //         }
-    //         if ((col+1) == (seats[col].length/2)) {
-        //             IO.print("|  ");
-    //         }
-    //     }
-    //     IO.print("|\n");
-    // }
 }
 
 void printAvailableSeats(String[] seats) {
@@ -161,9 +156,9 @@ void printAvailableSeats(String[] seats) {
         }
     }
 }
-//    1  2      3  4
-// A |1 |2 |   |3 |4 |
-// B |5 |6 |   |7 |8 |
-// C |9 |10|   |11|12|
-// D |13|14|   |15|16|
-// E |17|18|   |19|20|
+
+void clearScreen() {
+    for (int i = 0; i < 50; i++) {
+        IO.println();
+    }
+}
